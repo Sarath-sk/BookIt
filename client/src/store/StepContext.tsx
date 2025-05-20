@@ -19,7 +19,7 @@ interface StepProviderProps {
 }
 
 export const StepProvider: React.FC<StepProviderProps> = ({ children }) => {
-  const [step, setStep] = useState<number>(1); // Initial step
+  const [step, setStep] = useState<number>(4); // Initial step
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => (prev > 1 ? prev - 1 : 1));

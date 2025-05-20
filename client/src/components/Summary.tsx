@@ -9,7 +9,7 @@ interface ISummaryProps {
 }
 
 export default function Summary({formData}: ISummaryProps){
-    const {prevStep} = useStep()
+    const {prevStep, nextStep} = useStep()
     const navigate = useNavigate()
     const platformFee = 0.5;
 
@@ -57,7 +57,7 @@ export default function Summary({formData}: ISummaryProps){
 }}>
 Previous
 </Button>
-    <Button type="button" variant="contained" sx={{backgroundColor: '#9c27b0'}} onClick={handlePayment}>Proceed to Pay</Button>
+    <Button type="button" variant="contained" sx={{backgroundColor: '#9c27b0'}} onClick={()=>{nextStep(); navigate('/payment')}}>Proceed to Pay</Button>
     </div>
     </Card>
     </div>

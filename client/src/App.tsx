@@ -10,6 +10,7 @@ import { Main } from './components/Main';
 import { StepContext } from '@mui/material';
 import { StepProvider } from './store/StepContext';
 import ProtectedRoute from './helper/ProtectedRoute';
+import PayPalCheckout from './components/PayPalGateWay2';
 const defaultFormData: IFormData = {
   name: "",
   email: "",
@@ -35,8 +36,9 @@ function App() {
           <Route path='/form' element={<ProtectedRoute requiredStep={2}><Main><TicketForm2 handleForm={handleForm}/></Main></ProtectedRoute>} />
         
         <Route path='/summary' element={<ProtectedRoute requiredStep={3}><Main><Summary formData={formData}/></Main></ProtectedRoute>} />
-        <Route path='/success' element={<ProtectedRoute requiredStep={4}><Main><div>Success</div></Main></ProtectedRoute>} />
-        <Route path='/failed' element={<ProtectedRoute requiredStep={5}><Main><div>Failure</div></Main></ProtectedRoute>} />
+        <Route path='/payment' element={<ProtectedRoute requiredStep={4}><Main><PayPalCheckout /></Main></ProtectedRoute>} />
+        <Route path='/success' element={<ProtectedRoute requiredStep={5}><Main><div>Success</div></Main></ProtectedRoute>} />
+        <Route path='/failed' element={<ProtectedRoute requiredStep={6}><Main><div>Failure</div></Main></ProtectedRoute>} />
 
       </Routes>
     </BrowserRouter>
