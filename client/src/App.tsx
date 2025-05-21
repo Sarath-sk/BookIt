@@ -1,13 +1,10 @@
 import { useState } from 'react'
 import AvailableMovie from './components/AvailableMovie'
-import NavBar from './components/NavBar'
 import Summary from './components/Summary';
 import TicketForm2 from './components/Form2';
 import type { IFormData } from './components/interfaces';
-import PayPalGateWay from './components/PayPalGateWay';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Main } from './components/Main';
-import { StepContext } from '@mui/material';
 import { StepProvider } from './store/StepContext';
 import ProtectedRoute from './helper/ProtectedRoute';
 import PayPalCheckout from './components/PayPalGateWay2';

@@ -5,6 +5,8 @@ interface IMainProps {
     }
 
 export function Main({children}: IMainProps){
+
+    
     return <div className='flex flex-col'>
                 <NavBar />
                 {children}
