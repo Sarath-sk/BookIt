@@ -1,7 +1,10 @@
 import { Button, Card, TextField } from "@mui/material";
 import type { IFormData } from "./interfaces";
 import { useNavigate } from "react-router";
-import { useStep } from "../store/StepContext";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
+import { nextStep, prevStep } from "../store/slices/stepSlice";
+import { setUser } from "../store/slices/userSlice";
 
 interface ITicketFormProps {
     handleForm: (data:IFormData) => void;
@@ -10,7 +13,8 @@ interface ITicketFormProps {
 
 export default function TicketForm2({handleForm}:ITicketFormProps) {
   const navigate = useNavigate()
-  const { nextStep, prevStep } = useStep();
+    const dispatch = useDispatch<AppDispatch>();
+
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
@@ -24,18 +28,12 @@ export default function TicketForm2({handleForm}:ITicketFormProps) {
             seats: formData.get("seats")?.toString() || ""
         }
         handleForm(payload)
-        handleStep('INC')
+        dispatch(setUser(payload))
+        dispatch(nextStep())
+        navigate('/summary')
     }
 
-    const handleStep = (type: string)=> {
-      if(type === 'DEC'){
-        prevStep()
-        navigate('/')
-      }else if(type === 'INC'){
-        nextStep()
-        navigate('/summary')
-      }
-    }
+    
 
 
     return <div className="flex align-middle justify-center m-4">
@@ -69,7 +67,10 @@ export default function TicketForm2({handleForm}:ITicketFormProps) {
           type="number"
         />
         <div className="flex align-middle justify-around w-full">
-        <Button variant="outlined" sx={{color: '#9c27b0', outlineColor: 'whitesmoke', ":focus": {outlineColor: 'whitesmoke'}}} onClick={()=>handleStep("DEC")}>
+        <Button variant="outlined" sx={{color: '#9c27b0', outlineColor: 'whitesmoke', ":focus": {outlineColor: 'whitesmoke'}}} onClick={()=>{
+          dispatch(prevStep())
+          navigate('/')
+          }}>
 Previous
 </Button>
         <Button type='submit' variant="contained" sx={{backgroundColor: '#9c27b0'}}>Next</Button>

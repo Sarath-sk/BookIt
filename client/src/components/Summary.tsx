@@ -1,15 +1,17 @@
 import { Button, Card, Divider } from "@mui/material";
 import type { IFormData } from "./interfaces";
 import { useNavigate } from "react-router";
-import { useStep } from "../store/StepContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
+import { nextStep, prevStep } from "../store/slices/stepSlice";
 
 interface ISummaryProps {
     formData: IFormData;
 }
 
 export default function Summary({formData}: ISummaryProps){
-    const {prevStep, nextStep} = useStep()
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate()
     const platformFee = 0.5;
 
@@ -52,12 +54,12 @@ export default function Summary({formData}: ISummaryProps){
     </div>
     <div className="flex align-middle justify-around w-full">
 <Button variant="outlined" sx={{color: '#9c27b0', outlineColor: 'whitesmoke', ":focus": {outlineColor: 'whitesmoke'}}} onClick={()=>{
-    prevStep()
+    dispatch(prevStep())
     navigate('/form')
 }}>
 Previous
 </Button>
-    <Button type="button" variant="contained" sx={{backgroundColor: '#9c27b0'}} onClick={()=>{nextStep(); navigate('/payment')}}>Proceed to Pay</Button>
+    <Button type="button" variant="contained" sx={{backgroundColor: '#9c27b0'}} onClick={()=>{dispatch(nextStep()); navigate('/payment')}}>Proceed to Pay</Button>
     </div>
     </Card>
     </div>

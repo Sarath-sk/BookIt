@@ -1,11 +1,13 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Button, Card } from "@mui/material";
-import { useStep } from "../store/StepContext";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
+import { prevStep } from "../store/slices/stepSlice";
 
 
 function PayPalGateWay() {
-  const {prevStep} = useStep()
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate()
   const initialOptions = {
     clientId: "test",
@@ -21,7 +23,7 @@ function PayPalGateWay() {
             <h2>Please make the payment</h2>
             <PayPalButtons style={{ layout: "vertical", }} />
             <Button variant="contained" sx={{backgroundColor: '#9c27b0'}} onClick={()=>{
-              prevStep()
+             dispatch(prevStep())
               navigate('/summary')
             }}>
 Previous

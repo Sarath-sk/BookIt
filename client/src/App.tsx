@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import AvailableMovie from './components/AvailableMovie'
 import Summary from './components/Summary';
 import TicketForm2 from './components/Form2';
 import type { IFormData } from './components/interfaces';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
 import { Main } from './components/Main';
-import { StepProvider } from './store/StepContext';
 import ProtectedRoute from './helper/ProtectedRoute';
 import PayPalCheckout from './components/PayPalGateWay2';
+import SuccessScreen from './components/SuccessScreen';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from './store/store';
+import { fetchMovies } from './store/slices/movieSlice';
 const defaultFormData: IFormData = {
   name: "",
   email: "",
@@ -17,6 +20,15 @@ const defaultFormData: IFormData = {
 
 function App() {
   const [formData, setFormData] = useState<IFormData>(defaultFormData)
+  const dispatch = useDispatch<AppDispatch>();
+
+useEffect(() => {
+  try {
+    dispatch(fetchMovies())
+  } catch (err) {
+    console.error("Effect failed", err);
+  }
+}, []);
 
 
   const handleForm = (data: IFormData) => {
@@ -25,8 +37,7 @@ function App() {
 
 
   return (
-    <StepProvider>
-    <BrowserRouter>
+      <>
        <Routes>
         <Route path='/' element={<Main><AvailableMovie /></Main>} />
         
@@ -34,12 +45,12 @@ function App() {
         
         <Route path='/summary' element={<ProtectedRoute requiredStep={3}><Main><Summary formData={formData}/></Main></ProtectedRoute>} />
         <Route path='/payment' element={<ProtectedRoute requiredStep={4}><Main><PayPalCheckout /></Main></ProtectedRoute>} />
-        <Route path='/success' element={<ProtectedRoute requiredStep={5}><Main><div>Success</div></Main></ProtectedRoute>} />
+        <Route path='/success' element={<ProtectedRoute requiredStep={5}><Main><SuccessScreen /></Main></ProtectedRoute>} />
         <Route path='/failed' element={<ProtectedRoute requiredStep={6}><Main><div>Failure</div></Main></ProtectedRoute>} />
+        <Route path="*" element={<div>Fallback Route</div>} />
 
       </Routes>
-    </BrowserRouter>
-    </StepProvider>
+      </>
   )
 }
 

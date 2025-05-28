@@ -1,7 +1,8 @@
-// ProtectedRoute.tsx
 import { Navigate } from "react-router-dom";
-import type { JSX } from "@emotion/react/jsx-runtime";
-import { useStep } from "../store/StepContext";
+import { useSelector } from "react-redux";
+import type { JSX } from "react";
+
+import { type RootState } from "../store/store";
 
 interface Props {
   children: JSX.Element;
@@ -9,9 +10,9 @@ interface Props {
 }
 
 const ProtectedRoute = ({ children, requiredStep }: Props) => {
-  const { step } = useStep();
+  const currentStep = useSelector((state: RootState) => state.step.currentStep);
 
-  if (step < requiredStep) {
+  if (currentStep < requiredStep) {
     // Not allowed to access this route yet
     return <Navigate to="/" replace />;
   }
