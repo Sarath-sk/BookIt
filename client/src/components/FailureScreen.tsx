@@ -4,16 +4,16 @@ import type { IMovie } from "./interfaces";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../store/store";
-import { nextStep, setStep } from "../store/slices/stepSlice";
+import { setStep } from "../store/slices/stepSlice";
 
-const movieDetails: IMovie = {
-  title: "Kingdom",
-  availableSeats: 100,
-  screeningDate: "2025-06-10",
-  screeningTime: "19:30",
-  theatreLocation: "PVR Cinemas, Delhi",
-  genre: "Action"
-};
+// const movieDetails: IMovie = {
+//   title: "Kingdom",
+//   availableSeats: 100,
+//   screeningDate: "2025-06-10",
+//   screeningTime: "19:30",
+//   theatreLocation: "PVR Cinemas, Delhi",
+//   genre: "Action"
+// };
 
 export default function FailureScreen(){
     const navigate = useNavigate()
@@ -29,8 +29,8 @@ export default function FailureScreen(){
         </div>
     <div className="flex align-middle justify-center">
     <Button variant="contained" sx={{backgroundColor: '#9c27b0'}} onClick={()=>{
-      dispatch(setStep(2))
-      navigate('/form')}
+      dispatch(setStep(3))
+      navigate('/summary')}
       }>
   Try Again 
 </Button>

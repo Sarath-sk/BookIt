@@ -9,7 +9,7 @@ interface ITicketFormProps {
 export default function TicketForm({handleCurrentStep}:ITicketFormProps) {
 
     const handleSubmit = (e:React.FormEvent)=>{
-        console.log(e.target)
+        // console.log(e.target)
     }
 
 

@@ -19,9 +19,9 @@ export default function TicketForm2({handleForm}:ITicketFormProps) {
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         const formData = new FormData(e.currentTarget);
-        console.log(formData.get("name"))
-        console.log(formData.get("email"))
-        console.log(formData.get("seats"))
+        // console.log(formData.get("name"))
+        // console.log(formData.get("email"))
+        // console.log(formData.get("seats"))
         const payload:IFormData = {
             name: formData.get("name")?.toString() || "",
             email: formData.get("email")?.toString() || "",

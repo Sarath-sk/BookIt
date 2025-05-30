@@ -11,6 +11,7 @@ import SuccessScreen from './components/SuccessScreen';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from './store/store';
 import { fetchMovies } from './store/slices/movieSlice';
+import FailureScreen from './components/FailureScreen';
 const defaultFormData: IFormData = {
   name: "",
   email: "",
@@ -46,7 +47,7 @@ useEffect(() => {
         <Route path='/summary' element={<ProtectedRoute requiredStep={3}><Main><Summary formData={formData}/></Main></ProtectedRoute>} />
         <Route path='/payment' element={<ProtectedRoute requiredStep={4}><Main><PayPalCheckout /></Main></ProtectedRoute>} />
         <Route path='/success' element={<ProtectedRoute requiredStep={5}><Main><SuccessScreen /></Main></ProtectedRoute>} />
-        <Route path='/failed' element={<ProtectedRoute requiredStep={6}><Main><div>Failure</div></Main></ProtectedRoute>} />
+        <Route path='/failed' element={<ProtectedRoute requiredStep={6}><Main><FailureScreen /></Main></ProtectedRoute>} />
         <Route path="*" element={<div>Fallback Route</div>} />
 
       </Routes>

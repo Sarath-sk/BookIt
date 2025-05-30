@@ -17,19 +17,18 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
 import { prevStep, setStep } from "../store/slices/stepSlice";
 import { setTransactions } from "../store/slices/transcationSlice";
+import axios from "axios";
 
 const PayPalCheckout: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const userDetails= useSelector((state:RootState)=>state.users.currentUser)
     const movieDetails= useSelector((state:RootState)=>state.movies.list)
-    console.log(userDetails)
-    console.log(movieDetails)
   const navigate = useNavigate()
-  const initialOptions = {
-    clientId: 'test',
-    currency: "EUR",
-    intent: 'capture'
-  };
+//   const initialOptions = {
+//     clientId: 'test',
+//     currency: "EUR",
+//     intent: 'capture'
+//   };
 
 
 
@@ -53,7 +52,7 @@ const PayPalCheckout: React.FC = () => {
               purchase_units: [
                   {
                       amount: {
-                          value: `${parseInt(userDetails?.seats? userDetails?.seats: '1') * 20}`,
+                          value: `${parseInt(userDetails?.seats? userDetails?.seats: '1') * 20 + 0.5}`,
                           currency_code: "EUR"
                       },
                   },
@@ -69,12 +68,47 @@ const PayPalCheckout: React.FC = () => {
           if (details) {
             const name = details.payer?.name?.given_name;
             // alert(`Transaction completed by ${name}`);
-            console.log("Transaction Details:", details);
+            // console.log("Transaction Details:", details);
             // goToStep(5)
             // actions.redirect('http://localhost:5173/success')
             dispatch(setTransactions([{id: details?.id || '', movieId: movieDetails[0]._id || '', seatsBooked: parseInt(userDetails?.seats || '1'), timestamp: details.create_time || '' }]))
-            dispatch(setStep(5))
-            navigate('/success')
+            // await axios.
+            try {
+  const seatCount = userDetails?.seats;
+  const userEmail = userDetails?.email;
+  const movieId = movieDetails?.[0]?._id;
+  const movieTitle = movieDetails?.[0]?.title;
+
+  if (!seatCount || !userEmail || !movieId || !movieTitle) {
+    throw new Error('Missing required booking details');
+  }
+
+  const [seatRes, emailRes] = await Promise.all([
+    axios.put(`http://localhost:4000/movie/${movieId}/seats`, {
+      count: seatCount,
+    }),
+    axios.post('http://localhost:4000/email/send', {
+      email: userDetails.email,
+      movieTitle: movieDetails[0].title,
+      ticketCount: userDetails.seats,
+      screeningDate: movieDetails[0].screeningDate,
+      screeningTime: movieDetails[0].screeningTime,
+    }),
+  ]);
+
+  if (seatRes.status === 200 && emailRes.status === 200) {
+    dispatch(setStep(5));
+    navigate('/success');
+  } else {
+    throw new Error('One or more operations failed');
+  }
+} catch (error) {
+  console.error('Booking failed:', error);
+  dispatch(setStep(6));
+  navigate('/failed');
+}
+
+            
 
           }
         }}

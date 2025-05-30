@@ -20,7 +20,7 @@ export default function SuccessScreen(){
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>();
     const transactionDetails= useSelector((state:RootState)=>state.transactions.list)
-    console.log(transactionDetails)
+    // console.log(transactionDetails)
 
 
     return <div className="flex align-middle justify-center m-4">

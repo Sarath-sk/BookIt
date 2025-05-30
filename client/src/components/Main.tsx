@@ -11,12 +11,7 @@ interface IMainProps {
 
 export function Main({children}: IMainProps){
       const dispatch = useDispatch<AppDispatch>();
-  console.log("App running")
 
-
-  useEffect(()=>{
-    console.log("Inside useEffect")
-      })
 
     
     return <div className='flex flex-col'>

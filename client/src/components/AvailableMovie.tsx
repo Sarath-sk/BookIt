@@ -5,6 +5,7 @@ import img from "../assets/kingdom.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
 import { nextStep } from "../store/slices/stepSlice";
+import { fetchMovies } from "../store/slices/movieSlice";
 
 export default function AvailableMovie(){
   
@@ -13,7 +14,10 @@ export default function AvailableMovie(){
   
   const movies = useSelector((state:RootState) => state.movies.list)
     const dispatch = useDispatch<AppDispatch>();
-    console.log('available')
+
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, [dispatch]);
 
 
     return <div className="flex align-middle justify-center m-4">

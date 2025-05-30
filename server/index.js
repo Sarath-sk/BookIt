@@ -11,6 +11,7 @@ app.use(express.json())
 connectToDB()
 
 app.use('/movie', require('./routes/movieRoutes'))
+app.use('/email', require('./routes/email'))
 
 
 app.listen(4000, ()=>console.log("Server is running on Port: 4000"))
