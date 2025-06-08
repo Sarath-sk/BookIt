@@ -6,7 +6,7 @@ import type { IMovie } from '../../components/interfaces'; // Adjust the path if
 export const fetchMovies = createAsyncThunk<IMovie[]>(
   'movies/fetchMovies',
   async () => {
-    const res = await axios.get('http://localhost:4000/movie');
+    const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/movie`);
     // Return the array of movies (handle .data.data structure)
     return Array.isArray(res.data.data) ? res.data.data : [];
   }

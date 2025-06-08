@@ -24,6 +24,7 @@ const PayPalCheckout: React.FC = () => {
     const userDetails= useSelector((state:RootState)=>state.users.currentUser)
     const movieDetails= useSelector((state:RootState)=>state.movies.list)
   const navigate = useNavigate()
+  const baseUrl = import.meta.env.VITE_SERVER_URL
 //   const initialOptions = {
 //     clientId: 'test',
 //     currency: "EUR",
@@ -35,7 +36,7 @@ const PayPalCheckout: React.FC = () => {
   return (
         <div className="App">
     <PayPalScriptProvider options={{
-    clientId: 'test',
+    clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
     currency: "EUR",
     intent: 'capture'
   }}>
@@ -84,10 +85,10 @@ const PayPalCheckout: React.FC = () => {
   }
 
   const [seatRes, emailRes] = await Promise.all([
-    axios.put(`http://localhost:4000/movie/${movieId}/seats`, {
+    axios.put(`${baseUrl}/movie/${movieId}/seats`, {
       count: seatCount,
     }),
-    axios.post('http://localhost:4000/email/send', {
+    axios.post(`${baseUrl}/email/send`, {
       email: userDetails.email,
       movieTitle: movieDetails[0].title,
       ticketCount: userDetails.seats,

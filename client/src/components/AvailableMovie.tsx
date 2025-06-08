@@ -27,7 +27,7 @@ export default function AvailableMovie(){
       component="img"
       alt="green iguana"
       sx={{height: '16rem'}}
-      image={img}
+      image={"https://drive.google.com/uc?export=view&id=18HV3wGPes-FQQevCcDTlW_VYlzCfqfMX"}
     />
     <CardContent sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
       <Typography sx={{color: 'whitesmoke', fontWeight: 'bold'}} gutterBottom variant="h5" component="div">
