@@ -1,6 +1,6 @@
 // components/PayPalCheckout.tsx
 
-import React, { useState } from "react";
+import React from "react";
 import {
   PayPalScriptProvider,
   PayPalButtons,
@@ -46,7 +46,7 @@ const PayPalCheckout: React.FC = () => {
             <PayPalButtons
         style={{ layout: "vertical" }}
         createOrder={(
-          data: CreateOrderData,
+          _data: CreateOrderData,
           actions: CreateOrderActions
         ): Promise<string> => {
           return actions.order.create({
@@ -65,14 +65,16 @@ const PayPalCheckout: React.FC = () => {
           data: OnApproveData,
           actions: OnApproveActions
         ) => {
+            
+            
           const details = await actions.order?.capture();
           if (details) {
-            const name = details.payer?.name?.given_name;
+            // const name = details.payer?.name?.given_name;
             // alert(`Transaction completed by ${name}`);
             // console.log("Transaction Details:", details);
             // goToStep(5)
             // actions.redirect('http://localhost:5173/success')
-            dispatch(setTransactions([{id: details?.id || '', movieId: movieDetails[0]._id || '', seatsBooked: parseInt(userDetails?.seats || '1'), timestamp: details.create_time || '' }]))
+            dispatch(setTransactions([{id: details?.id || data.paymentID || '', movieId: movieDetails[0]._id || '', seatsBooked: parseInt(userDetails?.seats || '1'), timestamp: details.create_time || '' }]))
             // await axios.
             try {
   const seatCount = userDetails?.seats;
@@ -113,7 +115,7 @@ const PayPalCheckout: React.FC = () => {
 
           }
         }}
-        onError={(err: any) => {
+        onError={(err: unknown) => {
           console.error("PayPal error:", err);
           dispatch(setStep(6))
           navigate('/failed')

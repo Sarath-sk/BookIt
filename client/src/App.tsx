@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import AvailableMovie from './components/AvailableMovie'
 import Summary from './components/Summary';
 import TicketForm2 from './components/Form2';

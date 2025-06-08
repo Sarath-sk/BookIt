@@ -1,7 +1,6 @@
 import { Button, Card, Divider } from "@mui/material";
 import type { IFormData } from "./interfaces";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
 import { nextStep, prevStep } from "../store/slices/stepSlice";

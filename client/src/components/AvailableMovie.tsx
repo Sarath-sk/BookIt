@@ -1,7 +1,6 @@
 import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-import { useEffect, useReducer, useRef, useState } from "react";
-import img from "../assets/kingdom.jpg";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
 import { nextStep } from "../store/slices/stepSlice";

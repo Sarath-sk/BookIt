@@ -1,6 +1,5 @@
-import { Card, CardMedia, CardContent, Typography, Button } from "@mui/material"
+import { Card, CardContent, Typography, Button } from "@mui/material"
 // import type { movieDetails } from "../data/movieDetails"
-import img from "../assets/kingdom.jpg";
 import type { IMovie } from "./interfaces";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,7 +41,7 @@ export default function SuccessScreen(){
         Screening Date: <i>{movieDetails.screeningDate}</i>
       </Typography>
       <Typography variant="body2" sx={{ color: 'whitesmoke', opacity: '0.7' }}>
-        Screening Time: <i>11:00 am</i>
+        Screening Time: <i>{movieDetails.screeningTime}</i>
       </Typography>
       <Typography variant="body2" sx={{ color: 'whitesmoke', opacity: '0.7' }}>
         Booked Seats: <strong>{transactionDetails[0].seatsBooked}</strong>

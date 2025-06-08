@@ -1,6 +1,5 @@
-import { Card, CardContent, Typography, Button } from "@mui/material"
+import { Card, Button } from "@mui/material"
 // import type { movieDetails } from "../data/movieDetails"
-import type { IMovie } from "./interfaces";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../store/store";
